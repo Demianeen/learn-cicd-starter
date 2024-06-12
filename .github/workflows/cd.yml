@@ -22,12 +22,15 @@ jobs:
         run: ./scripts/buildprod.sh
 
       - id: "auth"
-        uses: "google-github-actions/auth@v1"
+        uses: "google-github-actions/auth@v2"
         with:
           credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
 
       - name: "Set up Cloud SDK"
-        uses: "google-github-actions/setup-gcloud@v1"
+        uses: "google-github-actions/setup-gcloud@v2"
+
+      - name: List IAM Policies
+        run: gcloud projects get-iam-policy ${{ secrets.GCP_PROJECT_ID }} --filter="bindings.members:serviceAccount:cloud-run-deployer@notely-426210.iam.gserviceaccount.com"
 
       - name: Build the docker image and push it to the Google Artifact Registry
         run: gcloud builds submit --tag us-central1-docker.pkg.dev/corded-backbone-426211-b3/notely-ar-repo/notely:latest
