@@ -16,7 +16,7 @@ func TestGetApiKey(t *testing.T) {
 		err   bool
 	}{
 		"valid header": {input: http.Header{
-			"Authorization": []string{"ApiKey test"},
+			"Authorization": []string{"ApiKey est"},
 		}, want: "test"},
 		"empty header": {input: http.Header{}, err: true},
 		"invalid auth scheme": {input: http.Header{
