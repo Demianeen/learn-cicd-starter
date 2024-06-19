@@ -29,11 +29,5 @@ jobs:
       - name: "Set up Cloud SDK"
         uses: "google-github-actions/setup-gcloud@v2"
 
-      - name: echo var
-        run: echo $GCLOUD_PROJECT
-
-      - name: List IAM Policies
-        run: gcloud projects get-iam-policy $GCLOUD_PROJECT --filter="bindings.members:serviceAccount:cloud-run-deployer@notely-426210.iam.gserviceaccount.com"
-
       - name: Build the docker image and push it to the Google Artifact Registry
         run: gcloud builds submit --tag us-central1-docker.pkg.dev/notely-426210/notely-ar-repo/notely:latest
